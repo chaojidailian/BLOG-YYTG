@@ -1,30 +1,32 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div class="app">
+    <el-config-provider :locale="locale">
+      <RouterView></RouterView>
+    </el-config-provider>
+  </div>
 </template>
 
+<script lang="ts" setup>
+import zhCn from 'element-plus/lib/locale/lang/zh-cn'
+const locale = zhCn
+</script>
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+* {
+  margin: 0;
+  padding: 0;
 }
-
-nav {
-  padding: 30px;
+html {
+  background: #2f4858;
 }
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+a {
+  color: black;
+  text-decoration: none;
 }
-
-nav a.router-link-exact-active {
-  color: #42b983;
+a:hover {
+  color: white;
+}
+.app {
+  display: flex;
+  justify-content: center;
 }
 </style>
