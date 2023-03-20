@@ -47,7 +47,6 @@ const handlerShowComment = (id: string) => {
 <style scoped>
 .comp-article {
   background: #006881;
-  border: 1px solid pink;
   border-radius: 10px;
   text-align: center;
 }

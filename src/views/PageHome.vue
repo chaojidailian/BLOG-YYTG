@@ -18,6 +18,7 @@
       </template>
       <div class="page-home-pagination">
         <el-pagination
+          v-if="showArticlesLength > pageSize"
           background
           layout="prev, pager, next"
           :total="articles.length"
@@ -53,11 +54,12 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, ref, onMounted } from 'vue'
+import { defineComponent, ref, onMounted, watch } from 'vue'
 import CompArticle from '@/components/CompArticle.vue'
 import CompComment from '@/components/CompComment.vue'
-import localCache from '@/utils/localCache'
+import localCache, { IArticle } from '@/utils/localCache'
 import { useRouter } from 'vue-router'
+import { ElMessage } from 'element-plus'
 
 defineComponent({
   CompArticle,
@@ -74,6 +76,22 @@ const editRef = ref<HTMLElement>()
 const pathRef = ref<HTMLElement>()
 const router = useRouter()
 const searchValue = ref('')
+const showArticlesLength = ref(articles.length)
+
+watch(searchValue, (value) => {
+  const result = articles.filter((article: IArticle) => {
+    return article.title.includes(value)
+  })
+  console.log(filterArticles.value.length < pageSize.value)
+  if (result.length === 0) {
+    ElMessage({
+      message: '没有找到该文章',
+      type: 'info'
+    })
+  }
+  showArticlesLength.value = result.length
+  filterArticles.value = result
+})
 
 const handlerShowComment = (id: string) => {
   if (comCommentRef.value) {
@@ -110,20 +128,21 @@ const handlerCurrentChange = (value: number) => {
 .page-home-side {
   width: 160px;
   height: 600px;
-  border: 1px solid red;
   margin-right: 20px;
   background: #336f95;
+  border-radius: 10px;
 }
 .page-home-main {
   flex: 1;
+  width: clamp(100px, 80vw, 1920px);
   position: relative;
-  border: 1px solid blue;
 }
 .page-home-main-search {
-  margin: 10px 0;
+  margin: 5px 0;
 }
 .page-home-main-article {
-  margin-bottom: 20px;
+  overflow: hidden;
+  margin: 10px 0;
 }
 .page-home-main-article:hover {
   box-shadow: 4px 4px 3px #345563, -4px -4px 3px #345563;

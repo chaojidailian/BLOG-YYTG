@@ -28,5 +28,6 @@ a:hover {
 .app {
   display: flex;
   justify-content: center;
+  padding: 0 20px;
 }
 </style>
