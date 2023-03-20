@@ -28,9 +28,12 @@ const props = defineProps<{
 
 const emit = defineEmits(['showComment'])
 
+//格式化日期
 const formatDate = computed(() =>
   new Date(props.article.date).toLocaleDateString()
 )
+
+//文章评论的长度
 const commentLength = computed(() => {
   if (props.article.comments) {
     return props.article.comments.length
@@ -39,6 +42,7 @@ const commentLength = computed(() => {
   }
 })
 
+//点击评论后，展示dialog
 const handlerShowComment = (id: string) => {
   emit('showComment', id)
 }

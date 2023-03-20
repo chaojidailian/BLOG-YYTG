@@ -78,9 +78,10 @@ const router = useRouter()
 const searchValue = ref('')
 const showArticlesLength = ref(articles.length)
 
-watch(searchValue, (value) => {
+//监听搜索框，展示搜索后的内容
+watch(searchValue, (value: string) => {
   const result = articles.filter((article: IArticle) => {
-    return article.title.includes(value)
+    return article.title.toLowerCase().includes(value.toLowerCase())
   })
   if (result.length === 0) {
     ElMessage({
@@ -92,12 +93,14 @@ watch(searchValue, (value) => {
   filterArticles.value = result
 })
 
+//控制显示评论页面
 const handlerShowComment = (id: string) => {
   if (comCommentRef.value) {
     comCommentRef.value.articleId = id
     comCommentRef.value.dialogVisible = true
   }
 }
+//加载之后，为编辑svg添加鼠标进入移出事件
 onMounted(() => {
   editRef.value?.addEventListener('mouseenter', () => {
     pathRef.value?.setAttribute('fill', '#d4237a')
@@ -107,10 +110,12 @@ onMounted(() => {
   })
 })
 
+//点击编辑svg之后，进入编辑页面
 const handlerEditIconClick = () => {
   router.push('/edit')
 }
 
+//控制分页器跳转，更新视图数据
 const handlerCurrentChange = (value: number) => {
   const result = articles.slice(
     (value - 1) * pageSize.value,

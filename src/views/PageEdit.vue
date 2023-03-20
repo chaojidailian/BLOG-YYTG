@@ -96,6 +96,7 @@ const handleCreated = (editor: IDomEditor) => {
   editorRef.value = editor // 记录 editor 实例，重要！
 }
 
+//设置评论数
 const setComments = () => {
   let result: string[] = []
   for (let i = 0; i < 20; i++) {
@@ -104,6 +105,7 @@ const setComments = () => {
   return result
 }
 
+//点击记录后，满足条件，添加进localStorage中
 const handlerEditCommit = () => {
   if (formData.title.length === 0) {
     ElMessage({
@@ -132,6 +134,7 @@ const handlerEditCommit = () => {
 const mode = 'simple'
 
 const router = useRouter()
+//返回按钮
 const handlerGoHomeClick = () => {
   router.push('/')
 }

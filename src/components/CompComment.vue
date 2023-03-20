@@ -48,6 +48,7 @@
 import { ref, defineExpose, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import localCache, { IArticle } from '@/utils/localCache'
+
 const dialogVisible = ref(false)
 const commentValue = ref('')
 const articleId = ref('')
@@ -68,6 +69,8 @@ const handlerSubmitClick = () => {
 
 let filterComments = ref<string[]>()
 let result: string[]
+
+//监听articleId变化，填充相应文章的评论
 watch(
   articleId,
   () => {
@@ -83,6 +86,7 @@ watch(
   }
 )
 
+//无限加载评论
 const load = () => {
   if (filterComments.value) {
     commentOffset.value += 1
@@ -98,6 +102,7 @@ const load = () => {
   }
 }
 
+//向外暴露的属性方法
 defineExpose({
   dialogVisible,
   articleId

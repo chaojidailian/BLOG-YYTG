@@ -11,13 +11,11 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     CompArticle: typeof import('./src/components/CompArticle.vue')['default']
     CompComment: typeof import('./src/components/CompComment.vue')['default']
-    ElAutocomplete: typeof import('element-plus/es')['ElAutocomplete']
     ElButton: typeof import('element-plus/es')['ElButton']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
     ElDialog: typeof import('element-plus/es')['ElDialog']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElPagination: typeof import('element-plus/es')['ElPagination']
-    ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }
