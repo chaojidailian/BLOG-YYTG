@@ -2,6 +2,13 @@
   <div class="page-home">
     <div class="page-home-side">菜单栏</div>
     <div class="page-home-main" v-if="articles && articles.length !== 0">
+      <el-input
+        class="page-home-main-search"
+        v-model="searchValue"
+        placeholder="根据标题搜索文章吧"
+        size="large"
+        clearable
+      />
       <template v-for="article in filterArticles" :key="article.id">
         <CompArticle
           :article="article"
@@ -66,6 +73,7 @@ const comCommentRef = ref<InstanceType<typeof CompComment>>()
 const editRef = ref<HTMLElement>()
 const pathRef = ref<HTMLElement>()
 const router = useRouter()
+const searchValue = ref('')
 
 const handlerShowComment = (id: string) => {
   if (comCommentRef.value) {
@@ -110,6 +118,9 @@ const handlerCurrentChange = (value: number) => {
   flex: 1;
   position: relative;
   border: 1px solid blue;
+}
+.page-home-main-search {
+  margin: 10px 0;
 }
 .page-home-main-article {
   margin-bottom: 20px;
