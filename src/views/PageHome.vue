@@ -82,7 +82,6 @@ watch(searchValue, (value) => {
   const result = articles.filter((article: IArticle) => {
     return article.title.includes(value)
   })
-  console.log(filterArticles.value.length < pageSize.value)
   if (result.length === 0) {
     ElMessage({
       message: '没有找到该文章',
