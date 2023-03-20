@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, ref, onMounted, reactive } from 'vue'
+import { defineComponent, ref, onMounted } from 'vue'
 import CompArticle from '@/components/CompArticle.vue'
 import CompComment from '@/components/CompComment.vue'
 import localCache from '@/utils/localCache'
@@ -64,7 +64,7 @@ defineComponent({
   CompComment
 })
 
-const articles = localCache.getCache('articles')
+const articles = localCache.getCache('articles') || []
 //每页显示的页数
 const pageSize = ref(4)
 let filterArticles = ref(articles.slice(0, pageSize.value))
