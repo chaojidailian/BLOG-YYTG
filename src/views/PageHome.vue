@@ -66,16 +66,22 @@ defineComponent({
   CompComment
 })
 
+//获取全部文章
 const articles = localCache.getCache('articles') || []
 //每页显示的页数
 const pageSize = ref(4)
+//过滤显示的文章
 let filterArticles = ref(articles.slice(0, pageSize.value))
-
+//评论区页面控件
 const comCommentRef = ref<InstanceType<typeof CompComment>>()
+//包裹svg的div控件
 const editRef = ref<HTMLElement>()
+//svg的path控件
 const pathRef = ref<HTMLElement>()
 const router = useRouter()
+//搜索框内容
 const searchValue = ref('')
+//过滤后可以展示的文章数量
 const showArticlesLength = ref(articles.length)
 
 //监听搜索框，展示搜索后的内容

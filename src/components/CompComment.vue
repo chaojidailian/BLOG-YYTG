@@ -49,12 +49,19 @@ import { ref, defineExpose, watch } from 'vue'
 import { ElMessage } from 'element-plus'
 import localCache, { IArticle } from '@/utils/localCache'
 
-const dialogVisible = ref(false)
-const commentValue = ref('')
-const articleId = ref('')
+//全部文章
 const allArticles = localCache.getCache('articles')
+//评论区页面是否显示
+const dialogVisible = ref(false)
+//发送评论的值
+const commentValue = ref('')
+//文章id
+const articleId = ref('')
+//文章默认评论显示个数
 const commentCount = ref(5)
+//文章评论偏移量：用于无限加载
 const commentOffset = ref(0)
+//评论是否已经获取完毕
 const noMore = ref(false)
 
 //发送评论

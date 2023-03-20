@@ -51,14 +51,7 @@
 
 <script lang="ts" setup>
 import '@wangeditor/editor/dist/css/style.css' // 引入 css
-
-import {
-  onBeforeUnmount,
-  reactive,
-  shallowRef,
-  onMounted,
-  defineComponent
-} from 'vue'
+import { onBeforeUnmount, reactive, shallowRef, defineComponent } from 'vue'
 import { IEditorConfig, IToolbarConfig, IDomEditor } from '@wangeditor/editor'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 import { ElMessage } from 'element-plus'
@@ -121,7 +114,6 @@ const handlerEditCommit = () => {
     })
     return ''
   }
-
   localCache.setCache('articles', {
     id: new Date().getTime() + Math.random().toString(36).substring(2),
     date: new Date(),
@@ -131,13 +123,12 @@ const handlerEditCommit = () => {
   })
 }
 
-const mode = 'simple'
-
 const router = useRouter()
 //返回按钮
 const handlerGoHomeClick = () => {
   router.push('/')
 }
+const mode = 'simple'
 </script>
 
 <style scoped>
