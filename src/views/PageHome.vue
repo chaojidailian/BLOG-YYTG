@@ -62,14 +62,12 @@ const articles = localCache.getCache('articles')
 const pageSize = ref(4)
 let filterArticles = ref(articles.slice(0, pageSize.value))
 
-console.log(filterArticles)
 const comCommentRef = ref<InstanceType<typeof CompComment>>()
 const editRef = ref<HTMLElement>()
 const pathRef = ref<HTMLElement>()
 const router = useRouter()
 
 const handlerShowComment = (id: string) => {
-  console.log(id)
   if (comCommentRef.value) {
     comCommentRef.value.articleId = id
     comCommentRef.value.dialogVisible = true
@@ -94,7 +92,6 @@ const handlerCurrentChange = (value: number) => {
     (value - 1) * pageSize.value + pageSize.value
   )
   filterArticles.value = result
-  console.log(filterArticles.value)
 }
 </script>
 

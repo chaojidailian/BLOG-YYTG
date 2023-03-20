@@ -105,9 +105,6 @@ const setComments = () => {
 }
 
 const handlerEditCommit = () => {
-  console.log(formData.valueHtml)
-  console.log(formData.title)
-  console.log(new Date().toLocaleString())
   if (formData.title.length === 0) {
     ElMessage({
       message: '请给文章一个标题吧！',
