@@ -2,7 +2,7 @@
   <div class="page-home">
     <div class="page-home-side">菜单栏</div>
     <div class="page-home-main" v-if="articles && articles.length !== 0">
-      <template v-for="article in articles" :key="article.id">
+      <template v-for="article in filterArticles" :key="article.id">
         <CompArticle
           :article="article"
           class="page-home-main-article"
@@ -13,8 +13,9 @@
         <el-pagination
           background
           layout="prev, pager, next"
-          :total="1000"
-          :page-size="2"
+          :total="articles.length"
+          :page-size="pageSize"
+          @current-change="handlerCurrentChange"
         />
       </div>
     </div>
@@ -45,7 +46,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineComponent, ref, onMounted } from 'vue'
+import { defineComponent, ref, onMounted, reactive } from 'vue'
 import CompArticle from '@/components/CompArticle.vue'
 import CompComment from '@/components/CompComment.vue'
 import localCache from '@/utils/localCache'
@@ -57,6 +58,11 @@ defineComponent({
 })
 
 const articles = localCache.getCache('articles')
+//每页显示的页数
+const pageSize = ref(4)
+let filterArticles = ref(articles.slice(0, pageSize.value))
+
+console.log(filterArticles)
 const comCommentRef = ref<InstanceType<typeof CompComment>>()
 const editRef = ref<HTMLElement>()
 const pathRef = ref<HTMLElement>()
@@ -80,6 +86,15 @@ onMounted(() => {
 
 const handlerEditIconClick = () => {
   router.push('/edit')
+}
+
+const handlerCurrentChange = (value: number) => {
+  const result = articles.slice(
+    (value - 1) * pageSize.value,
+    (value - 1) * pageSize.value + pageSize.value
+  )
+  filterArticles.value = result
+  console.log(filterArticles.value)
 }
 </script>
 

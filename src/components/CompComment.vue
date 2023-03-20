@@ -51,7 +51,6 @@ const handlerSubmitClick = () => {
 }
 
 const comments = computed(() => {
-  console.log('执行了...')
   const value = allArticles.find(
     (item: IArticle) => item.id === articleId.value
   ).comments
