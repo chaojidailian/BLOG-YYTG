@@ -19,7 +19,7 @@ npm run serve
 - 使用 localStorage 存储数据
 - 导航栏
 - 无限滚动加载
-- 搜索(不是autocomplete)
+- 搜索
 - 标签/日期查看文章(实现中)
 --------------------
 

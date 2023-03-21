@@ -2,12 +2,13 @@
   <div class="page-home">
     <div class="page-home-side">菜单栏</div>
     <div class="page-home-main" v-if="articles && articles.length !== 0">
-      <el-input
-        class="page-home-main-search"
+      <el-autocomplete
         v-model="searchValue"
-        placeholder="根据标题搜索文章吧"
-        size="large"
+        :fetch-suggestions="querySearch"
         clearable
+        class="page-home-main-search"
+        placeholder="搜索文章"
+        @select="handleSelect"
       />
       <template v-for="article in filterArticles" :key="article.id">
         <CompArticle
@@ -60,6 +61,7 @@ import CompComment from '@/components/CompComment.vue'
 import localCache, { IArticle } from '@/utils/localCache'
 import { useRouter } from 'vue-router'
 import { ElMessage } from 'element-plus'
+import { result } from 'lodash'
 
 defineComponent({
   CompArticle,
@@ -84,20 +86,35 @@ const searchValue = ref('')
 //过滤后可以展示的文章数量
 const showArticlesLength = ref(articles.length)
 
-//监听搜索框，展示搜索后的内容
-watch(searchValue, (value: string) => {
-  const result = articles.filter((article: IArticle) => {
-    return article.title.toLowerCase().includes(value.toLowerCase())
-  })
-  if (result.length === 0) {
-    ElMessage({
-      message: '没有找到该文章',
-      type: 'info'
-    })
+//搜索提示框显示内容
+const querySearch = (queryString: string, cb: any) => {
+  let results: string[] = []
+  if (queryString.length !== 0) {
+    results = articles
+      .map((article: IArticle) => {
+        if (article.title.toLowerCase().includes(queryString.toLowerCase())) {
+          return { value: article.title }
+        }
+      })
+      .filter((title: string) => title !== undefined)
+  } else {
+    results = articles
+      .map((article: IArticle) => {
+        return { value: article.title }
+      })
+      .filter((title: string) => title !== undefined)
   }
+  cb(results)
+}
+
+//选中搜索框内容
+const handleSelect = (item: any) => {
+  const result = articles.filter((article: IArticle) => {
+    return article.title.toLowerCase().includes(item.value.toLowerCase())
+  })
   showArticlesLength.value = result.length
   filterArticles.value = result
-})
+}
 
 //控制显示评论页面
 const handlerShowComment = (id: string) => {
