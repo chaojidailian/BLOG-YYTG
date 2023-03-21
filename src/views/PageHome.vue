@@ -60,8 +60,6 @@ import CompArticle from '@/components/CompArticle.vue'
 import CompComment from '@/components/CompComment.vue'
 import localCache, { IArticle } from '@/utils/localCache'
 import { useRouter } from 'vue-router'
-import { ElMessage } from 'element-plus'
-import { result } from 'lodash'
 
 defineComponent({
   CompArticle,
